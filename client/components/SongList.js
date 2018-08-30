@@ -8,13 +8,30 @@ class SongList extends Component {
     //     console.log(nextProps);
     //     console.log(nextState)
     // }
+    renderSongs() {
+        return this.props.data.songs.map(song => {
+            return (
+                <li key={song.id} className="collection-item">
+                    {song.title}
+                </li>
+            );
+        });
+    }
 
     render() {
+        let songs;
         console.log(this.props);
+        if (this.props.data.loading){
+            songs = <li>'Loading...'</li>;
+        }else{
+            songs = this.renderSongs();
+        }
+        
+
         return (
-            <div>
-                SongList
-            </div>
+            <ul className="collection">
+                {songs}
+            </ul>
         );
     }
 }
