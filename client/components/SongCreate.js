@@ -33,7 +33,7 @@ class SongCreate extends Component {
             console.log("From mutation:", data);
             hashHistory.push('/');
             // this.props.router.push('/');
-        })
+        });
         // .catch((err) => {})
     }
 

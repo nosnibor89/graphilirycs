@@ -16,9 +16,23 @@ class SongList extends Component {
         return this.props.data.songs.map(song => {
             return (
                 <li key={song.id} className="collection-item">
-                    {song.title}
+                    <Link to={`/songs/${song.id}`}>{song.title}</Link>
+                    <i className="material-icons" onClick={() => this.handleDelete(song.id)}>delete</i>
                 </li>
             );
+        });
+    }
+    
+    handleDelete(id){
+        this.props.mutate({
+            variables: {
+                id,
+            },
+            // refetchQueries: [{ query }] // This is an alternative for `this.props.data.refetch()` 
+                                           // which can be used becuase the query is already associated with the component
+        }).then(() => {
+            console.log(this.props);
+            this.props.data.refetch();
         });
     }
 
@@ -48,13 +62,13 @@ class SongList extends Component {
     }
 }
 
-// const query = gql`
-// {
-//     songs{
-//       id
-//       title
-//     }
-// }
-// `;
+ const mutation = gql`
+ mutation DeleteSong($id: ID){
+    deleteSong(id: $id){
+        id
+    }
+}`;
 
-export default graphql(query)(SongList);
+export default graphql(mutation)(
+    graphql(query)(SongList)
+);
