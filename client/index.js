@@ -11,7 +11,9 @@ import SongDetail from './components/SongDetail';
 
 import './style/style.css';
 
-const client = new ApolloClient({});
+const client = new ApolloClient({
+  dataIdFromObject: o => o.id, //This allows to catch data from id
+});
 
 const Root = () => {
   return (

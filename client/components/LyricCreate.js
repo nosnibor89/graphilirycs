@@ -22,12 +22,13 @@ class LyricCreate extends Component {
         console.log(this.props)
         this.props.mutate({
             variables: {
-                songId: this.props.id,
+                songId: this.props.songId,
                 content: this.state.content,
-            }
+            },
         })
         .then((data) => {
             console.log("From lyric mutation:", data);
+            this.setState({content: ''});
         });
 
     }
@@ -47,7 +48,7 @@ class LyricCreate extends Component {
 const mutation = gql`
 mutation AddLyricToSong($content: String, $songId: ID){
     addLyricToSong(content: $content, songId: $songId ){
-      title
+      id
       lyrics{
         id
         content
