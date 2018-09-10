@@ -17,9 +17,11 @@ class LyricList extends Component {
         return lyrics.map(lyric => {
             return (
                 <li key={lyric.id} className="collection-item">
-                    {/* <Link to={`/lyrics/${lyric.id}`}>{lyric.content}</Link> */}
                     {lyric.content}
-                    <i className="material-icons" onClick={() => this.handleLike(lyric.id)}>thumb_up</i>
+                    <div className="vote-box">
+                        <i className="material-icons" onClick={() => this.handleLike(lyric.id)}>thumb_up</i>
+                        {lyric.likes}
+                    </div>
                 </li>
             );
         });

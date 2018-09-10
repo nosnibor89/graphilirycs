@@ -8,6 +8,7 @@ query getSong($id: ID!){
     lyrics{
       id
       content
+      likes
     }
   }
 }
