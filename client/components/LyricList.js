@@ -5,10 +5,18 @@ import gql from 'graphql-tag';
 
 class LyricList extends Component {
 
-    handleLike(id) {
+    handleLike(id, likes) {
         console.log(id);
         this.props.mutate({
             variables: { id },
+            optimisticResponse: {
+                __typename: 'Mutation',
+                likeLyric: {
+                    id,
+                    __typename: 'LyricType',
+                    likes: likes + 1,
+                }
+            }
         });
     }
 
@@ -19,7 +27,7 @@ class LyricList extends Component {
                 <li key={lyric.id} className="collection-item">
                     {lyric.content}
                     <div className="vote-box">
-                        <i className="material-icons" onClick={() => this.handleLike(lyric.id)}>thumb_up</i>
+                        <i className="material-icons" onClick={() => this.handleLike(lyric.id, lyric.likes)}>thumb_up</i>
                         {lyric.likes}
                     </div>
                 </li>
